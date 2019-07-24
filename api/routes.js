@@ -8,5 +8,5 @@ module.exports = function (app) {
     app.route('/clients/:clientId([-0-9a-fA-F]{20})')
         .get(controller.get_client);
     app.route('/clients')
-        .post(controller.put_client);
+        .post(controller.post_client);
 };

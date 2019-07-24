@@ -5,19 +5,16 @@ const _ = require('lodash');
 
 let clients = {
     list: function (req, res, next) {
-        request(zipCodeURL + apiKey
-            + '/distance.json/' + req.params.zipcode1 + '/'
-            + req.params.zipcode2 + '/mile',
+        request('https://testbankapi.firebaseio.com/clients.json',
             function (error, response, body) {
-                if (!error && response.statusCode == 200) {
-                    response = JSON.parse(body);
-                    res.send(response);
-                } else {
-                    console.log(response.statusCode + response.body);
-                    res.send({ distance: -1 });
+                if (error && error.statusCode) {
+                    return res.status(error.statusCode).send(err);
+                } else if (error) {
+                    return res.status(500).send([error, response.body]);
                 }
+                response = JSON.parse(body);
+                res.send({ 'results': response });
             });
-
     }
 };
 
