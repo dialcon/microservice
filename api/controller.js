@@ -35,7 +35,8 @@ let controllers = {
      * @param {Object} res
      */
     post_client: function (req, res) {
-        clients.add(req, res, function (err, client) {
+        let a = req.body;
+        clients.insert(req, res, function (err, client) {
             if (err)
                 res.send(err);
             res.json(client);
